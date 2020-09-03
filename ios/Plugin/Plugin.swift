@@ -15,7 +15,10 @@ public class CAPHttpPlugin: CAPPlugin {
     
     let headers = (call.getObject("headers") ?? [:]) as [String:String]
     
-    let params = (call.getObject("params") ?? [:]) as [String:String]
+    var params = [String:String]()
+    for (param, value) in (call.getObject("params") ?? [:]) {
+        params[param] = "\(value)"
+    }
     
     guard var url = URL(string: urlValue) else {
       return call.reject("Invalid URL")
